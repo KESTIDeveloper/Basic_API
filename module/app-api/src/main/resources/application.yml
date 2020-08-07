@@ -1,0 +1,97 @@
+server:
+  port: 7777
+
+spring:
+  profiles.active: local
+  application:
+    name: smartcity-api
+  jackson:
+    default-property-inclusion: NON_NULL
+
+#  datasource.url: jdbc:postgresql://175.113.135.40:6319/?useUnicode=yes&characterEncoding=UTF-8
+#  datasource.username: smartcity
+#  datasource.password: smartcity64181!
+#  datasource.testOnBorrow: true
+#  datasource.validationQuery: SELECT 1
+
+#  datasource:
+#    hikari:
+#      max-lifetime: 300000
+#      maximum-pool-size: 10
+#      minimum-idle: 3
+#      pool-name: SMART-CITY-DB
+#      schema: testbedweb
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://175.113.135.40:6319/smartcity?useUnicode=yes&characterEncoding=UTF-8
+#    username: smartcity
+#    password: smartcity64181!
+
+  datasource:
+    hikari:
+      max-lifetime: 300000
+      maximum-pool-size: 10
+      minimum-idle: 3
+      pool-name: KESTI_PMS-DB
+      schema: kesti_pms
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://175.113.135.40:6319/kma_gtad?useUnicode=yes&characterEncoding=UTF-8
+    username: kma
+    password: kma9633!!
+
+  jpa.hibernate.ddl-auto: none
+  jpa.properties.hibernate.jdbc.time_zone : Asia/Seoul
+  jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  jpa.show-sql: false
+  jpa.properties.hibernate.format_sql: false
+  jackson.default-property-inclusion: NON_NULL
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+mybatis:
+  config-location: classpath:config/mybatis-config.xml
+  mapper-locations:
+  - mapper/**/*.xml
+
+logging:
+  level:
+    root: info
+    co.kesti.smartcity: debug
+#    org.springframework.web.filter: debug
+  config: classpath:logback-spring.xml
+  appender: CONSOLE
+
+upload:
+  dir: /upload/
+
+vworld:
+  key: ACA018E4-2B19-320B-8699-ACC551467E87
+  
+---
+
+spring:
+  profiles: local
+
+cors.allowed-domains: http://localhost:9100
+
+---
+
+spring:
+  profiles: dev
+
+cors.allowed-domains: http://175.113.135.40:6304
+
+---
+
+spring:
+  profiles: prd
+
+logging:
+  level:
+    root: info
+  config: classpath:logback-spring.xml
+  appender: FILE
+
+cors.allowed-domains: http://localhost:9100
